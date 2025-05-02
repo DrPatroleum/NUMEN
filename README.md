@@ -21,4 +21,4 @@
 ## 🚀 Jak uruchomić?
 
 ```bash
-python numerologia_ai.py
+python numen.py
