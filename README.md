@@ -1,4 +1,4 @@
-# 🔮 NUMEN — Numerologia AI z interpretacją karmy, strzałami Pitagorasa i kontekstem duchowym
+# 🔮 NUMEN — Numerologia z interpretacją karmy, strzałami Pitagorasa i kontekstem duchowym
 
 **NUMEN** to inteligentne narzędzie do analizy numerologicznej imienia i daty urodzenia — bez użycia API ani chmury.  
 Łączy klasyczną numerologię pitagorejską z nowoczesnym Pythonem i lokalnym silnikiem interpretacji.
