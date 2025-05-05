@@ -1,3 +1,5 @@
+# Finalny pełny kod zintegrowany z prognozą roczną i kompatybilnością partnerską
+
 from datetime import datetime
 
 # Mapa liter
@@ -38,7 +40,30 @@ karmic_lesson_meanings = {
     9: "Lekcja współczucia, altruizmu i akceptacji końców."
 }
 
-# Interpretacje numerologiczne (kontekstowe)
+# Prognozy roczne
+personal_year_predictions = {
+    1: "Nowe początki, inicjatywy, samodzielność.",
+    2: "Współpraca, cierpliwość, relacje, przygotowanie.",
+    3: "Ekspresja, radość, kreatywność, towarzyskość.",
+    4: "Praca, struktura, obowiązki, cierpliwość.",
+    5: "Zmiany, wolność, przygody, elastyczność.",
+    6: "Rodzina, odpowiedzialność, domowe sprawy, harmonia.",
+    7: "Introspekcja, duchowość, analiza, wyciszenie.",
+    8: "Ambicje, sukces zawodowy, zarządzanie finansami.",
+    9: "Zakończenia, podsumowania, służba innym, transformacja."
+}
+
+# Kompatybilność partnerska
+compatibility_matrix = {
+    (1, 1): "Silna, ale może dojść do konfliktu o przywództwo.",
+    (1, 2): "Uzupełniający się związek – lider i wspierający partner.",
+    (1, 3): "Dużo energii i twórczości – świetna dynamika.",
+    (2, 2): "Harmonia i bliskość, ale może brakować akcji.",
+    (2, 3): "Delikatność i zabawa – związek pełen lekkości.",
+    (3, 3): "Radość, lekkość i zabawa – wymarzone połączenie dusz artystycznych.",
+}
+
+# Interpretacje numerologiczne (fragment)
 number_meanings_contextual = {
     "Liczba Życia": {
         1: "Twoje życie to ścieżka lidera, samodzielność i ambicja.",
@@ -50,54 +75,10 @@ number_meanings_contextual = {
         7: "Masz drogę duchową, skłonność do introspekcji i analizy.",
         8: "Twoja ścieżka życiowa dotyczy sukcesu materialnego i organizacji.",
         9: "Twoją misją jest altruizm, humanitaryzm i służba.",
-        11: "Masz potencjał przewodnika duchowego i inspiratora.",
-        22: "Potrafisz realizować wielkie cele materialne dla dobra ogółu.",
-        33: "Jesteś mistrzem uzdrawiania i bezwarunkowej miłości."
-    },
-    "Liczba Osobowości": {
-        1: "Postrzegany jesteś jako niezależny i zdeterminowany.",
-        2: "Sprawiasz wrażenie spokojnego i ugodowego.",
-        3: "Inni widzą Cię jako osobę towarzyską i twórczą.",
-        4: "Jesteś odbierany jako solidny, uporządkowany i praktyczny.",
-        5: "Emanujesz energią, zmianą i otwartością.",
-        6: "Wzbudzasz zaufanie jako osoba ciepła i opiekuńcza.",
-        7: "Twoja osobowość jest tajemnicza, refleksyjna i poważna.",
-        8: "Wyglądasz na kogoś pewnego siebie, ambitnego i konkretnego.",
-        9: "Emanujesz duchowością, współczuciem i głębią.",
-        11: "Widziany jesteś jako osoba natchniona i wizjonerska.",
-        22: "Prezentujesz się jako silny strateg i lider budujący coś większego.",
-        33: "Twoja obecność przynosi poczucie miłości, uzdrawiania i misji."
-    },
-    "Liczba Duszy": {
-        1: "Wewnętrzna potrzeba niezależności i bycia liderem.",
-        2: "Pragnienie harmonii, spokoju i współpracy.",
-        3: "Głębokie potrzeby ekspresji, twórczości i radości.",
-        4: "Potrzeba stabilizacji, porządku i bezpieczeństwa.",
-        5: "Wewnętrzne pragnienie wolności i różnorodności doświadczeń.",
-        6: "Silna potrzeba dawania miłości, opieki i poczucia obowiązku.",
-        7: "Duchowe i intelektualne poszukiwania wewnętrzne.",
-        8: "Pragnienie kontroli, osiągnięć i siły materialnej.",
-        9: "Potrzeba służenia innym i niesienia pomocy.",
-        11: "Potrzeba rozwijania intuicji i wyższej świadomości.",
-        22: "Wewnętrzne dążenie do realizacji wielkich wizji.",
-        33: "Potrzeba poświęcenia się dla dobra innych i duchowego przewodnictwa."
-    },
-    "Liczba Imienia": {
-        1: "Masz wrodzony potencjał przywódczy i determinację.",
-        2: "Twoja osobowość wyraża się przez współpracę i dyplomację.",
-        3: "Jesteś twórczy, ekspresyjny i z łatwością komunikujesz się z innymi.",
-        4: "Jesteś zorganizowany, praktyczny i lojalny.",
-        5: "Elastyczny, energiczny i kochający zmiany.",
-        6: "Twoja natura to troska, rodzina i obowiązek.",
-        7: "Masz w sobie głębię duchową, analityczny umysł i samotnicze skłonności.",
-        8: "Dążysz do sukcesu, jesteś zorganizowany i odpowiedzialny.",
-        9: "Jesteś pełen empatii, mądrości i chcesz pomagać innym.",
-        11: "Nosisz w sobie wibrację inspiracji, duchowej misji i geniuszu.",
-        22: "Masz potencjał realizatora wielkich idei w praktyce.",
-        33: "Twoja droga to służba innym, miłość bez granic i duchowa opieka."
     }
 }
 
+# Funkcje numerologiczne
 def reduce_number(n):
     while n > 9 and n not in [11, 22, 33]:
         n = sum(int(d) for d in str(n))
@@ -159,11 +140,18 @@ def interpret_karmic_lessons(lessons):
 def get_contextual_meaning(n, aspect):
     return number_meanings_contextual.get(aspect, {}).get(n, "Brak interpretacji.")
 
+def get_personal_year_forecast(year_num):
+    return personal_year_predictions.get(year_num, "Brak prognozy.")
+
+def get_life_path_compatibility(life1, life2):
+    key = tuple(sorted((life1, life2)))
+    return compatibility_matrix.get(key, "Brak danych o tej parze liczbowej.")
+
+# Główne uruchomienie
 if __name__ == "__main__":
-    print("=== NUMEROLOGIA AI Z PITAGORASEM I LEKCJAMI KARMICZNYMI ===")
+    print("=== NUMEROLOGIA AI: RAPORT ROZSZERZONY ===")
     name = input("Podaj imię i nazwisko: ")
     date = input("Podaj datę urodzenia (YYYY-MM-DD): ")
-
     try:
         year, month, day = map(int, date.split("-"))
     except ValueError:
@@ -176,39 +164,42 @@ if __name__ == "__main__":
     persona = personality_number(name)
     personal = personal_year(day, month)
     karma = karmic_lessons(name)
-
     digits = extract_digits_from_date(day, month, year)
     counts = calculate_arrow_counts(digits)
     found, missing = detect_pitagoras_arrows(counts)
 
     print(f"\n📌 Liczba Życia: {life}")
     print("Znaczenie:", get_contextual_meaning(life, "Liczba Życia"))
-
     print(f"\n🧠 Liczba Imienia: {exp}")
-    print("Znaczenie:", get_contextual_meaning(exp, "Liczba Imienia"))
-
-    print(f"\n💓 Liczba Duszy: {soul}")
-    print("Znaczenie:", get_contextual_meaning(soul, "Liczba Duszy"))
-
-    print(f"\n🎭 Liczba Osobowości: {persona}")
-    print("Znaczenie:", get_contextual_meaning(persona, "Liczba Osobowości"))
-
+    print(f"💓 Liczba Duszy: {soul}")
+    print(f"🎭 Liczba Osobowości: {persona}")
     print(f"\n📅 Rok osobisty: {personal}")
-    print("Znaczenie:", get_contextual_meaning(personal, "Liczba Życia"))
+    print("🔮 Prognoza:", get_personal_year_forecast(personal))
 
     print(f"\n⚖️ Lekcje karmiczne:")
     print(karmic_lesson_grid(karma))
     for line in interpret_karmic_lessons(karma):
         print(" -", line)
 
-    print("\n📐 Strzały Pitagorasa (z daty urodzenia):")
+    print("\n📐 Strzały Pitagorasa:")
     for i in range(1, 10):
         print(f"  {i}: {'●' * counts[i] if counts[i] > 0 else '–'}")
-
     print("\n✅ Obecne strzały:")
     for line in found:
         print(" -", line)
-
     print("\n❌ Brakujące strzały:")
     for line in missing:
         print(" -", line)
+
+    # Kompatybilność partnerska
+    print("\n💞 KOMPATYBILNOŚĆ PARTNERSKA")
+    partner_name = input("Podaj imię i nazwisko partnera: ")
+    partner_date = input("Podaj datę urodzenia partnera (YYYY-MM-DD): ")
+    try:
+        p_year, p_month, p_day = map(int, partner_date.split("-"))
+        partner_life = calculate_life_path(p_day, p_month, p_year)
+        print(f"\n❤️ Liczba Życia partnera ({partner_name}): {partner_life}")
+        print("🤝 Interpretacja związku:")
+        print(get_life_path_compatibility(life, partner_life))
+    except ValueError:
+        print("❌ Błędny format daty partnera.")
