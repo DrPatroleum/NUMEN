@@ -1,8 +1,8 @@
-# Finalny pełny kod zintegrowany z prognozą roczną i kompatybilnością partnerską
-
+import tkinter as tk
+from tkinter import messagebox, filedialog
 from datetime import datetime
 
-# Mapa liter
+# --- MAPA LITER ---
 letter_to_number = {
     **dict.fromkeys(['A', 'J', 'S'], 1),
     **dict.fromkeys(['B', 'K', 'T'], 2),
@@ -15,32 +15,20 @@ letter_to_number = {
     **dict.fromkeys(['I', 'R'], 9),
 }
 
-# Strzały Pitagorasa
-pitagoras_arrow_definitions = {
-    (1, 2, 3): "Strzała Intelektu – jasność myśli, analityczne podejście",
-    (4, 5, 6): "Strzała Planowania – dobra organizacja, praktyczność",
-    (7, 8, 9): "Strzała Emocji – intensywność emocjonalna, empatia",
-    (1, 4, 7): "Strzała Praktyczności – twarde stąpanie po ziemi",
-    (2, 5, 8): "Strzała Równowagi – harmonia ciała, umysłu i ducha",
-    (3, 6, 9): "Strzała Ducha – duchowość, twórczość i empatia",
-    (1, 5, 9): "Strzała Determinacji – silna wola i wytrwałość",
-    (3, 5, 7): "Strzała Wizji – wyobraźnia, wizjonerstwo, kreatywność"
-}
-
-# Interpretacje lekcji karmicznych
+# --- LEKCJE KARMICZNE ---
 karmic_lesson_meanings = {
-    1: "Lekcja niezależności, asertywności i wyrażania siebie.",
-    2: "Lekcja współpracy, cierpliwości i dyplomacji.",
-    3: "Lekcja wyrażania emocji, radości i twórczości.",
-    4: "Lekcja organizacji, systematyczności i pracy nad sobą.",
-    5: "Lekcja elastyczności, wolności i panowania nad chaosem.",
-    6: "Lekcja odpowiedzialności, opiekuńczości i rodziny.",
-    7: "Lekcja zaufania, duchowości i wewnętrznego rozwoju.",
-    8: "Lekcja władzy, zarządzania i stosunku do pieniędzy.",
-    9: "Lekcja współczucia, altruizmu i akceptacji końców."
+    1: "NIEZALEŻNOŚĆ, ASERTYWNOŚĆ\n - masz trudności w podejmowaniu decyzji, odczuwasz brak wiary w siebie, zdarza Ci się uległość wobec innych",
+    2: "WSPÓŁPRACA, DYPLOMACJA\n - masz trudności w pracy zespołowej i skłonność do konfliktów, bywasz nadwrażliwy",
+    3: "EKSPRESJA, TWÓRCZOŚĆ\n - masz trudności z wyrażaniem emocji, zahamowania w mowie i sztuce",
+    4: "DYSCYPLINA, ORGANIZACJA\n - zauważasz chaos w życiu codziennym, masz problemy z konsekwencją i strukturą",
+    5: "WOLNOŚĆ, ELASTYCZNOŚĆ\n - odczuwasz strach przed zmianami, kontrolujesz siebie lub innych",
+    6: "ODPOWIEDZIALNOŚĆ, RODZINA\n - unikasz zobowiązań, masz lęk przed bliskością lub opieką",
+    7: "DUCHOWOŚĆ, INTROSPEKCJA\n - cierpisz na brak zaufania do siebie, jesteś powierzchowny, unikasz samotności",
+    8: "WŁADZA, PIENIĄDZE\n - masz problemy z zarządzaniem finansami, unikasz odpowiedzialności za sukces",
+    9: "ALTRUIZM, ZAKOŃCZENIA\n - masz trudności w opuszczaniu przeszłości, zdarza Ci się brak empatii i zaborczość"
 }
 
-# Prognozy roczne
+# --- PROGNOZY ROCZNE ---
 personal_year_predictions = {
     1: "Nowe początki, inicjatywy, samodzielność.",
     2: "Współpraca, cierpliwość, relacje, przygotowanie.",
@@ -53,17 +41,7 @@ personal_year_predictions = {
     9: "Zakończenia, podsumowania, służba innym, transformacja."
 }
 
-# Kompatybilność partnerska
-compatibility_matrix = {
-    (1, 1): "Silna, ale może dojść do konfliktu o przywództwo.",
-    (1, 2): "Uzupełniający się związek – lider i wspierający partner.",
-    (1, 3): "Dużo energii i twórczości – świetna dynamika.",
-    (2, 2): "Harmonia i bliskość, ale może brakować akcji.",
-    (2, 3): "Delikatność i zabawa – związek pełen lekkości.",
-    (3, 3): "Radość, lekkość i zabawa – wymarzone połączenie dusz artystycznych.",
-}
-
-# Interpretacje numerologiczne (fragment)
+# --- INTERPRETACJE ---
 number_meanings_contextual = {
     "Liczba Życia": {
         1: "Twoje życie to ścieżka lidera, samodzielność i ambicja.",
@@ -75,10 +53,55 @@ number_meanings_contextual = {
         7: "Masz drogę duchową, skłonność do introspekcji i analizy.",
         8: "Twoja ścieżka życiowa dotyczy sukcesu materialnego i organizacji.",
         9: "Twoją misją jest altruizm, humanitaryzm i służba.",
+        11: "Jesteś nauczycielem duchowym, cechuje Cię intuicja, inspiracja i przewodnictwo duchowe. Twoje życie jest pełne intensywnych doświadczeń i potrzeby pomagania innym przez światło wewnętrzne.",
+        22: "Masz ogromny potencjał materializacji wizji oraz zdolność do tworzenia struktur dla dobra wielu.",
+        33: "Odczuwalna jest wibracja bezwarunkowej miłości, współczucia i służby. Życie poświęcasz innym, często przez trudne osobiste doświadczenia."     
+    },
+    "Liczba Imienia": {
+        1: "Jesteś liderem, urodzonym do podejmowania decyzji.",
+        2: "Jesteś mediatorem, wspierasz innych w harmonii.",
+        3: "Masz talent do wyrażania siebie i kreatywności.",
+        4: "Jesteś rzetelny, dokładny i systematyczny.",
+        5: "Uwielbiasz zmiany, ruch i różnorodność.",
+        6: "Cechuje Cię odpowiedzialność i potrzeba troski o innych.",
+        7: "Masz głęboki umysł i filozoficzne podejście do życia.",
+        8: "Masz dryg do interesów i zarządzania.",
+        9: "Jesteś idealistą, chętnie niesiesz pomoc innym.",
+        11: "Masz potencjał inspirować przez słowo i obecność. Możesz być natchnieniem dla innych bez użycia siły.",
+        22: "Twoje imię niesie wibrację przywództwa i organizacji wielkich idei, nawet jeśli wydajesz się cichy.",
+        33: "Twoje imię rezonuje z energią uzdrawiania, ciepła i służby, nawet jeśli nie jesteś tego świadom."
+    },
+    "Liczba Duszy": {
+        1: "Pragniesz niezależności i bycia rozpoznawanym.",
+        2: "Twoja dusza dąży do harmonii i współpracy.",
+        3: "Pragniesz radości, ekspresji i bycia wysłuchanym.",
+        4: "Potrzebujesz stabilizacji, rutyny i porządku.",
+        5: "Twoja dusza pragnie wolności i nowych doświadczeń.",
+        6: "Masz potrzebę opiekowania się i kochania innych.",
+        7: "Dążysz do duchowości i wewnętrznego spokoju.",
+        8: "Pragniesz sukcesu, autorytetu i bezpieczeństwa.",
+        9: "Twoja dusza pragnie pomagać i służyć ludzkości.",
+        11: "Twoja dusza pragnie wyższego celu, transcendencji i przekraczania ego.",
+        22: "Wewnątrz nosisz potrzebę tworzenia czegoś większego niż Ty sam – dla dobra ogółu.",
+        33: "Głęboka potrzeba bezwarunkowej miłości, harmonii i uzdrawiania emocjonalnego siebie i innych."
+    },
+    "Liczba Osobowości": {
+        1: "Jesteś postrzegany jako pewny siebie lider.",
+        2: "Sprawiasz wrażenie uprzejmej i taktowniej osoby.",
+        3: "Wydajesz się radosny, towarzyski i kreatywny.",
+        4: "Emanujesz solidnością i odpowiedzialnością.",
+        5: "Jesteś dynamiczny i otwarty na nowe.",
+        6: "Postrzegany jesteś jako troskliwy i rodzinny.",
+        7: "Wydajesz się tajemniczy i intelektualny.",
+        8: "Robisz wrażenie silnego i zorganizowanego.",
+        9: "Jesteś odbierany jako współczujący i mądry.",
+        11: "Jesteś postrzegany jako osoba charyzmatyczna, nieuchwytna, duchowa. Inni mogą czuć Twoją aurę nawet bez słów.",
+        22: "Robisz wrażenie osoby potężnej, stabilnej, zorganizowanej, nawet jeśli w środku jesteś wrażliwy.",
+        33: "Jesteś odbierany jako uzdrowiciel, opiekun, ktoś, kto emanuje spokojem i empatią."
     }
 }
 
-# Funkcje numerologiczne
+# --- FUNKCJE NUMEROLOGICZNE ---
 def reduce_number(n):
     while n > 9 and n not in [11, 22, 33]:
         n = sum(int(d) for d in str(n))
@@ -104,33 +127,10 @@ def personal_year(day, month, year=None):
 def extract_digits_from_date(day, month, year):
     return [int(d) for d in f"{day:02d}{month:02d}{year}"]
 
-def calculate_arrow_counts(digits):
-    counts = {i: 0 for i in range(1, 10)}
-    for d in digits:
-        if d in counts:
-            counts[d] += 1
-    return counts
-
-def detect_pitagoras_arrows(counts):
-    found = []
-    missing = []
-    for line in pitagoras_arrow_definitions:
-        if all(counts[d] > 0 for d in line):
-            found.append(pitagoras_arrow_definitions[line])
-        elif all(counts[d] == 0 for d in line):
-            missing.append("Brak " + pitagoras_arrow_definitions[line])
-    return found, missing
 
 def karmic_lessons(name):
     digits = [letter_to_number.get(c, 0) for c in name.upper() if c.isalpha()]
     return [n for n in range(1, 10) if n not in digits]
-
-def karmic_lesson_grid(lessons):
-    grid = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
-    display = "\n📐 Siatka Lekcji Karmicznych:\n"
-    for row in grid:
-        display += "  ".join(f"{n}:{'✖' if n in lessons else '✔'}" for n in row) + "\n"
-    return display
 
 def interpret_karmic_lessons(lessons):
     if not lessons:
@@ -143,63 +143,75 @@ def get_contextual_meaning(n, aspect):
 def get_personal_year_forecast(year_num):
     return personal_year_predictions.get(year_num, "Brak prognozy.")
 
-def get_life_path_compatibility(life1, life2):
-    key = tuple(sorted((life1, life2)))
-    return compatibility_matrix.get(key, "Brak danych o tej parze liczbowej.")
+# --- GUI ---
+class NumerologyApp:
+    def __init__(self, master):
+        self.master = master
+        master.title("Numerologia AI – Profil Osobisty")
+        master.geometry("700x600")
+        master.configure(bg="#f9f2ec")
 
-# Główne uruchomienie
+        tk.Label(master, text="Imię i nazwisko:", bg="#f9f2ec", font=("Georgia", 12)).pack(pady=(10, 0))
+        self.name_entry = tk.Entry(master, font=("Georgia", 12), width=40)
+        self.name_entry.pack(pady=5)
+
+        tk.Label(master, text="Data urodzenia (YYYY-MM-DD):", bg="#f9f2ec", font=("Georgia", 12)).pack(pady=(10, 0))
+        self.dob_entry = tk.Entry(master, font=("Georgia", 12), width=20)
+        self.dob_entry.pack(pady=5)
+
+        self.generate_btn = tk.Button(master, text="Generuj raport", font=("Georgia", 12, "bold"), bg="#d1c4e9", command=self.generate_report)
+        self.generate_btn.pack(pady=20)
+
+        self.output = tk.Text(master, wrap="word", font=("Georgia", 11), bg="#fffdf7", height=20)
+        self.output.pack(padx=10, pady=10, fill="both", expand=True)
+
+        self.save_btn = tk.Button(master, text="Zapisz raport do pliku", font=("Georgia", 11), bg="#b2dfdb", command=self.save_report)
+        self.save_btn.pack(pady=(0, 10))
+
+    def generate_report(self):
+        name = self.name_entry.get()
+        date = self.dob_entry.get()
+
+        try:
+            year, month, day = map(int, date.split("-"))
+        except ValueError:
+            messagebox.showerror("Błąd", "Wprowadź poprawną datę w formacie RRRR-MM-DD")
+            return
+
+        life = calculate_life_path(day, month, year)
+        exp = name_number(name)
+        soul = soul_number(name)
+        persona = personality_number(name)
+        personal = personal_year(day, month)
+        karma = karmic_lessons(name)
+        digits = extract_digits_from_date(day, month, year)
+
+        report = f"Imię i nazwisko: {name}\nData urodzenia: {date}\n\n"
+        report += f"📌 Liczba Życia: {life}\n{get_contextual_meaning(life, 'Liczba Życia')}\n\n"
+        report += f"🧠 Liczba Imienia: {exp}\n{get_contextual_meaning(exp, 'Liczba Imienia')}\n\n"
+        report += f"💓 Liczba Duszy: {soul}\n{get_contextual_meaning(soul, 'Liczba Duszy')}\n\n"
+        report += f"🎭 Liczba Osobowości: {persona}\n{get_contextual_meaning(persona, 'Liczba Osobowości')}\n\n"        
+        report += f"📅 Rok osobisty: {personal}\n🔮 Prognoza na ten rok: {get_personal_year_forecast(personal)}\n\n"
+        report += f"⚖️ Lekcje karmiczne:\n"
+        for line in interpret_karmic_lessons(karma):
+            report += f" - {line}\n"
+
+        self.output.delete("1.0", tk.END)
+        self.output.insert(tk.END, report)
+
+    def save_report(self):
+        report_text = self.output.get("1.0", tk.END).strip()
+        if not report_text:
+            messagebox.showinfo("Brak danych", "Najpierw wygeneruj raport")
+            return
+
+        file_path = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Pliki tekstowe", "*.txt")])
+        if file_path:
+            with open(file_path, "w", encoding="utf-8") as file:
+                file.write(report_text)
+            messagebox.showinfo("Zapisano", f"Raport zapisany do {file_path}")
+
 if __name__ == "__main__":
-    print("=== NUMEROLOGIA AI: RAPORT ROZSZERZONY ===")
-    name = input("Podaj imię i nazwisko: ")
-    date = input("Podaj datę urodzenia (YYYY-MM-DD): ")
-    try:
-        year, month, day = map(int, date.split("-"))
-    except ValueError:
-        print("Błędny format.")
-        exit()
-
-    life = calculate_life_path(day, month, year)
-    exp = name_number(name)
-    soul = soul_number(name)
-    persona = personality_number(name)
-    personal = personal_year(day, month)
-    karma = karmic_lessons(name)
-    digits = extract_digits_from_date(day, month, year)
-    counts = calculate_arrow_counts(digits)
-    found, missing = detect_pitagoras_arrows(counts)
-
-    print(f"\n📌 Liczba Życia: {life}")
-    print("Znaczenie:", get_contextual_meaning(life, "Liczba Życia"))
-    print(f"\n🧠 Liczba Imienia: {exp}")
-    print(f"💓 Liczba Duszy: {soul}")
-    print(f"🎭 Liczba Osobowości: {persona}")
-    print(f"\n📅 Rok osobisty: {personal}")
-    print("🔮 Prognoza:", get_personal_year_forecast(personal))
-
-    print(f"\n⚖️ Lekcje karmiczne:")
-    print(karmic_lesson_grid(karma))
-    for line in interpret_karmic_lessons(karma):
-        print(" -", line)
-
-    print("\n📐 Strzały Pitagorasa:")
-    for i in range(1, 10):
-        print(f"  {i}: {'●' * counts[i] if counts[i] > 0 else '–'}")
-    print("\n✅ Obecne strzały:")
-    for line in found:
-        print(" -", line)
-    print("\n❌ Brakujące strzały:")
-    for line in missing:
-        print(" -", line)
-
-    # Kompatybilność partnerska
-    print("\n💞 KOMPATYBILNOŚĆ PARTNERSKA")
-    partner_name = input("Podaj imię i nazwisko partnera: ")
-    partner_date = input("Podaj datę urodzenia partnera (YYYY-MM-DD): ")
-    try:
-        p_year, p_month, p_day = map(int, partner_date.split("-"))
-        partner_life = calculate_life_path(p_day, p_month, p_year)
-        print(f"\n❤️ Liczba Życia partnera ({partner_name}): {partner_life}")
-        print("🤝 Interpretacja związku:")
-        print(get_life_path_compatibility(life, partner_life))
-    except ValueError:
-        print("❌ Błędny format daty partnera.")
+    root = tk.Tk()
+    app = NumerologyApp(root)
+    root.mainloop()
