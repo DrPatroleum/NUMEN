@@ -1,4 +1,4 @@
-# 🔮 NUMEN — Numerologia z interpretacją karmy i kontekstem duchowym
+# 🔮 NUMEN — Numerologia
 
 **NUMEN** to inteligentne narzędzie do analizy numerologicznej imienia i daty urodzenia — bez użycia API ani chmury.  
 Łączy klasyczną numerologię z nowoczesnym Pythonem i lokalnym silnikiem interpretacji.
@@ -8,7 +8,6 @@
 - ✅ Obliczanie Liczby Życia, Duszy, Osobowości i Ekspresji
 - 🔄 Redukcja wibracji z obsługą liczb mistrzowskich (11, 22, 33)
 - 📆 Wyliczanie Roku Osobistego (cykl 9-letni)
-- 🧩 Analiza Lekcji Karmicznych (z interpretacją)
 - 📚 Kontekstowe znaczenie każdej liczby (życie vs osobowość itd.)
 - 💻 Działa całkowicie offline, bez API i internetu
 
