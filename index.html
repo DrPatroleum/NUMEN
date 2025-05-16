@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Numerologia AI – Profil Osobisty</title>
+  <style>
+    body { font-family: Georgia, serif; background: #f9f2ec; color: #2e2e2e; margin: 0; padding: 20px; }
+    h1 { text-align: center; }
+    .container { max-width: 600px; margin: 0 auto; background: #fffdf7; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    label { display: block; margin-top: 10px; font-weight: bold; }
+    input[type="text"], input[type="date"] { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; }
+    button { margin-top: 15px; padding: 10px 20px; background: #d1c4e9; border: none; border-radius: 4px; font-size: 1rem; cursor: pointer; }
+    button:hover { background: #b39ddb; }
+    pre { background: #fffdf7; padding: 15px; border-radius: 4px; overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Numerologia AI – Profil Osobisty</h1>
+    <label for="name">Imię i nazwisko:</label>
+    <input type="text" id="name" placeholder="Jan Kowalski" />
+
+    <label for="dob">Data urodzenia:</label>
+    <input type="date" id="dob" />
+
+    <button id="generateBtn">Generuj raport</button>
+
+    <pre id="output"></pre>
+  </div>
+
+  <script>
+    const letterToNumber = {
+      A:1,J:1,S:1, B:2,K:2,T:2, C:3,L:3,U:3, D:4,M:4,V:4,
+      E:5,N:5,W:5, F:6,O:6,X:6, G:7,P:7,Y:7, H:8,Q:8,Z:8,
+      I:9,R:9
+    };
+
+    const personalYearPredictions = {
+      1: "Nowe początki, inicjatywy, samodzielność.",
+      2: "Współpraca, cierpliwość, relacje, przygotowanie.",
+      3: "Ekspresja, radość, kreatywność, towarzyskość.",
+      4: "Praca, struktura, obowiązki, cierpliwość.",
+      5: "Zmiany, wolność, przygody, elastyczność.",
+      6: "Rodzina, odpowiedzialność, domowe sprawy, harmonia.",
+      7: "Introspekcja, duchowość, analiza, wyciszenie.",
+      8: "Ambicje, sukces zawodowy, zarządzanie finansami.",
+      9: "Zakończenia, podsumowania, służba innym, transformacja."
+    };
+
+    const numberMeaningsContextual = {
+      "Liczba Życia": {
+        1: "Twoje życie to ścieżka lidera, samodzielność i ambicja.",
+        2: "Twoje życie wymaga współpracy, empatii i dyplomacji.",
+        3: "Masz naturalny dar ekspresji, radości i kreatywności.",
+        4: "Twoje życie opiera się na strukturze, pracy i wytrwałości.",
+        5: "Jesteś stworzony do zmian, przygód i wolności.",
+        6: "Twoja misja to odpowiedzialność, rodzina i troska o innych.",
+        7: "Masz drogę duchową, skłonność do introspekcji i analizy.",
+        8: "Twoja ścieżka życiowa dotyczy sukcesu materialnego i organizacji.",
+        9: "Twoją misją jest altruizm, humanitaryzm i służba.",
+        11: "Jesteś nauczycielem duchowym, cechuje Cię intuicja i inspiracja.",
+        22: "Masz ogromny potencjał materializacji wizji dla dobra wielu.",
+        33: "Odczuwalna jest wibracja bezwarunkowej miłości i służby."
+      },
+      "Liczba Imienia": { /* analogicznie */ },
+      "Liczba Duszy": { /* analogicznie */ },
+      "Liczba Osobowości": { /* analogicznie */ }
+    };
+
+    function reduceNumber(n) {
+      while (n > 9 && ![11,22,33].includes(n)) {
+        n = String(n).split('').reduce((sum,d)=>sum+Number(d),0);
+      }
+      return n;
+    }
+
+    function calculateLifePath(day, month, year) {
+      return reduceNumber(
+        reduceNumber(day) + reduceNumber(month) + reduceNumber(year)
+      );
+    }
+
+    function nameNumber(name) {
+      return reduceNumber(
+        [...name.toUpperCase()].reduce((sum,c)=>sum+(letterToNumber[c]||0),0)
+      );
+    }
+
+    function soulNumber(name) {
+      return reduceNumber(
+        [...name.toUpperCase()].reduce((sum,c)=>sum+(("AEIOUY".includes(c)?letterToNumber[c]:0)),0)
+      );
+    }
+
+    function personalityNumber(name) {
+      return reduceNumber(
+        [...name.toUpperCase()].reduce((sum,c)=>sum+((/[A-Z]/.test(c)&&!"AEIOUY".includes(c))?letterToNumber[c]:0),0)
+      );
+    }
+
+    function personalYear(day, month, year) {
+      const y = year || new Date().getFullYear();
+      return reduceNumber(
+        reduceNumber(day) + reduceNumber(month) + reduceNumber(y)
+      );
+    }
+
+    function getContextualMeaning(n, aspect) {
+      const obj = numberMeaningsContextual[aspect]||{};
+      return obj[n]||"Brak interpretacji.";
+    }
+
+    function getPersonalYearForecast(n) {
+      return personalYearPredictions[n]||"Brak prognozy.";
+    }
+
+    document.getElementById('generateBtn').addEventListener('click', ()=>{
+      const name = document.getElementById('name').value.trim();
+      const dob = document.getElementById('dob').value;
+      if (!name || !dob) { alert('Uzupełnij oba pola.'); return; }
+      const [year,month,day] = dob.split('-').map(Number);
+      const life = calculateLifePath(day,month,year);
+      const exp = nameNumber(name);
+      const soul = soulNumber(name);
+      const persona = personalityNumber(name);
+      const pYear = personalYear(day,month);
+      let out = '';
+      out += `Imię i nazwisko: ${name}\n`;
+      out += `Data urodzenia: ${dob}\n\n`;
+      out += `📌 Liczba Życia: ${life}\n${getContextualMeaning(life,'Liczba Życia')}\n\n`;
+      out += `🧠 Liczba Imienia: ${exp}\n${getContextualMeaning(exp,'Liczba Imienia')}\n\n`;
+      out += `💓 Liczba Duszy: ${soul}\n${getContextualMeaning(soul,'Liczba Duszy')}\n\n`;
+      out += `🎭 Liczba Osobowości: ${persona}\n${getContextualMeaning(persona,'Liczba Osobowości')}\n\n`;
+      out += `📅 Rok osobisty: ${pYear}\n🔮 Prognoza: ${getPersonalYearForecast(pYear)}\n`;
+      document.getElementById('output').textContent = out;
+    });
+  </script>
+</body>
+</html>
