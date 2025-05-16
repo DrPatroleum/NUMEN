@@ -127,16 +127,6 @@ def personal_year(day, month, year=None):
 def extract_digits_from_date(day, month, year):
     return [int(d) for d in f"{day:02d}{month:02d}{year}"]
 
-
-def karmic_lessons(name):
-    digits = [letter_to_number.get(c, 0) for c in name.upper() if c.isalpha()]
-    return [n for n in range(1, 10) if n not in digits]
-
-def interpret_karmic_lessons(lessons):
-    if not lessons:
-        return ["Brak – wszystkie wibracje obecne"]
-    return [f"{n}: {karmic_lesson_meanings[n]}" for n in lessons]
-
 def get_contextual_meaning(n, aspect):
     return number_meanings_contextual.get(aspect, {}).get(n, "Brak interpretacji.")
 
@@ -183,7 +173,6 @@ class NumerologyApp:
         soul = soul_number(name)
         persona = personality_number(name)
         personal = personal_year(day, month)
-        karma = karmic_lessons(name)
         digits = extract_digits_from_date(day, month, year)
 
         report = f"Imię i nazwisko: {name}\nData urodzenia: {date}\n\n"
@@ -192,9 +181,6 @@ class NumerologyApp:
         report += f"💓 Liczba Duszy: {soul}\n{get_contextual_meaning(soul, 'Liczba Duszy')}\n\n"
         report += f"🎭 Liczba Osobowości: {persona}\n{get_contextual_meaning(persona, 'Liczba Osobowości')}\n\n"        
         report += f"📅 Rok osobisty: {personal}\n🔮 Prognoza na ten rok: {get_personal_year_forecast(personal)}\n\n"
-        report += f"⚖️ Lekcje karmiczne:\n"
-        for line in interpret_karmic_lessons(karma):
-            report += f" - {line}\n"
 
         self.output.delete("1.0", tk.END)
         self.output.insert(tk.END, report)
