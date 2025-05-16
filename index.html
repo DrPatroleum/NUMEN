@@ -4,32 +4,57 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Numerologia AI – Profil Osobisty</title>
+  <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/babel-standalone@7.22.9/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
-    body { font-family: Georgia, serif; background: #f9f2ec; color: #2e2e2e; margin: 0; padding: 20px; }
-    h1 { text-align: center; }
-    .container { max-width: 600px; margin: 0 auto; background: #fffdf7; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-    label { display: block; margin-top: 10px; font-weight: bold; }
-    input[type="text"], input[type="date"] { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; }
-    button { margin-top: 15px; padding: 10px 20px; background: #d1c4e9; border: none; border-radius: 4px; font-size: 1rem; cursor: pointer; }
-    button:hover { background: #b39ddb; }
-    pre { background: #fffdf7; padding: 15px; border-radius: 4px; overflow-x: auto; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #2e1a47 0%, #4b0082 50%, #191970 100%);
+      background-size: 200% 200%;
+      animation: gradientFlow 15s ease infinite;
+      font-family: 'Poppins', sans-serif;
+      color: #ffffff;
+    }
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    }
+    input, button {
+      transition: all 0.3s ease;
+    }
+    input:focus {
+      outline: none;
+      border-color: #a78bfa;
+      box-shadow: 0 0 8px rgba(167, 139, 250, 0.5);
+    }
+    button:hover {
+      transform: translateY(-2px);
+    }
+    #output {
+      white-space: pre-wrap;
+      animation: fadeIn 1s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Numerologia AI – Profil Osobisty</h1>
-    <label for="name">Imię i nazwisko:</label>
-    <input type="text" id="name" placeholder="Jan Kowalski" />
+  <div id="root"></div>
 
-    <label for="dob">Data urodzenia:</label>
-    <input type="date" id="dob" />
-
-    <button id="generateBtn">Generuj raport</button>
-
-    <pre id="output"></pre>
-  </div>
-
-  <script>
+  <script type="text/babel">
     const letterToNumber = {
       A:1,J:1,S:1, B:2,K:2,T:2, C:3,L:3,U:3, D:4,M:4,V:4,
       E:5,N:5,W:5, F:6,O:6,X:6, G:7,P:7,Y:7, H:8,Q:8,Z:8,
@@ -73,11 +98,11 @@
         7: "Masz głęboki umysł i filozoficzne podejście do życia.",
         8: "Masz dryg do interesów i zarządzania.",
         9: "Jesteś idealistą, chętnie niesiesz pomoc innym.",
-        11: "Masz potencjał inspirować przez słowo i obecność. Możesz być natchnieniem dla innych bez użycia siły.",
-        22: "Twoje imię niesie wibrację przywództwa i organizacji wielkich idei, nawet jeśli wydajesz się cichy.",
-        33: "Twoje imię rezonuje z energią uzdrawiania, ciepła i służby, nawet jeśli nie jesteś tego świadom."
-    },
-    "Liczba Duszy": {
+        11: "Masz potencjał inspirować przez słowo i obecność.",
+        22: "Twoje imię niesie wibrację przywództwa i organizacji wielkich idei.",
+        33: "Twoje imię rezonuje z energią uzdrawiania, ciepła i służby."
+      },
+      "Liczba Duszy": {
         1: "Pragniesz niezależności i bycia rozpoznawanym.",
         2: "Twoja dusza dąży do harmonii i współpracy.",
         3: "Pragniesz radości, ekspresji i bycia wysłuchanym.",
@@ -87,11 +112,11 @@
         7: "Dążysz do duchowości i wewnętrznego spokoju.",
         8: "Pragniesz sukcesu, autorytetu i bezpieczeństwa.",
         9: "Twoja dusza pragnie pomagać i służyć ludzkości.",
-        11: "Twoja dusza pragnie wyższego celu, transcendencji i przekraczania ego.",
-        22: "Wewnątrz nosisz potrzebę tworzenia czegoś większego niż Ty sam – dla dobra ogółu.",
-        33: "Głęboka potrzeba bezwarunkowej miłości, harmonii i uzdrawiania emocjonalnego siebie i innych."
-    },
-    "Liczba Osobowości": {
+        11: "Twoja dusza pragnie wyższego celu i transcendencji.",
+        22: "Wewnątrz nosisz potrzebę tworzenia dla dobra ogółu.",
+        33: "Głęboka potrzeba bezwarunkowej miłości i uzdrawiania."
+      },
+      "Liczba Osobowości": {
         1: "Jesteś postrzegany jako pewny siebie lider.",
         2: "Sprawiasz wrażenie uprzejmej i taktowniej osoby.",
         3: "Wydajesz się radosny, towarzyski i kreatywny.",
@@ -101,10 +126,10 @@
         7: "Wydajesz się tajemniczy i intelektualny.",
         8: "Robisz wrażenie silnego i zorganizowanego.",
         9: "Jesteś odbierany jako współczujący i mądry.",
-        11: "Jesteś postrzegany jako osoba charyzmatyczna, nieuchwytna, duchowa. Inni mogą czuć Twoją aurę nawet bez słów.",
-        22: "Robisz wrażenie osoby potężnej, stabilnej, zorganizowanej, nawet jeśli w środku jesteś wrażliwy.",
-        33: "Jesteś odbierany jako uzdrowiciel, opiekun, ktoś, kto emanuje spokojem i empatią."
-    }
+        11: "Jesteś postrzegany jako charyzmatyczna, duchowa osoba.",
+        22: "Robisz wrażenie osoby potężnej i zorganizowanej.",
+        33: "Jesteś odbierany jako uzdrowiciel i opiekun."
+      }
     };
 
     function reduceNumber(n) {
@@ -154,26 +179,82 @@
       return personalYearPredictions[n]||"Brak prognozy.";
     }
 
-    document.getElementById('generateBtn').addEventListener('click', ()=>{
-      const name = document.getElementById('name').value.trim();
-      const dob = document.getElementById('dob').value;
-      if (!name || !dob) { alert('Uzupełnij oba pola.'); return; }
-      const [year,month,day] = dob.split('-').map(Number);
-      const life = calculateLifePath(day,month,year);
-      const exp = nameNumber(name);
-      const soul = soulNumber(name);
-      const persona = personalityNumber(name);
-      const pYear = personalYear(day,month);
-      let out = '';
-      out += `Imię i nazwisko: ${name}\n`;
-      out += `Data urodzenia: ${dob}\n\n`;
-      out += `📌 Liczba Życia: ${life}\n${getContextualMeaning(life,'Liczba Życia')}\n\n`;
-      out += `🧠 Liczba Imienia: ${exp}\n${getContextualMeaning(exp,'Liczba Imienia')}\n\n`;
-      out += `💓 Liczba Duszy: ${soul}\n${getContextualMeaning(soul,'Liczba Duszy')}\n\n`;
-      out += `🎭 Liczba Osobowości: ${persona}\n${getContextualMeaning(persona,'Liczba Osobowości')}\n\n`;
-      out += `📅 Rok osobisty: ${pYear}\n🔮 Prognoza: ${getPersonalYearForecast(pYear)}\n`;
-      document.getElementById('output').textContent = out;
-    });
+    const App = () => {
+      const [name, setName] = React.useState('');
+      const [dob, setDob] = React.useState('');
+      const [output, setOutput] = React.useState('');
+
+      const handleGenerate = () => {
+        if (!name.trim() || !dob) {
+          alert('Uzupełnij oba pola.');
+          return;
+        }
+        const [year, month, day] = dob.split('-').map(Number);
+        const life = calculateLifePath(day, month, year);
+        const exp = nameNumber(name);
+        const soul = soulNumber(name);
+        const persona = personalityNumber(name);
+        const pYear = personalYear(day, month);
+        let out = '';
+        out += `Imię i nazwisko: ${name}\n`;
+        out += `Data urodzenia: ${dob}\n\n`;
+        out += `📌 Liczba Życia: ${life}\n${getContextualMeaning(life,'Liczba Życia')}\n\n`;
+        out += `🧠 Liczba Imienia: ${exp}\n${getContextualMeaning(exp,'Liczba Imienia')}\n\n`;
+        out += `💓 Liczba Duszy: ${soul}\n${getContextualMeaning(soul,'Liczba Duszy')}\n\n`;
+        out += `🎭 Liczba Osobowości: ${persona}\n${getContextualMeaning(persona,'Liczba Osobowości')}\n\n`;
+        out += `📅 Rok osobisty: ${pYear}\n🔮 Prognoza: ${getPersonalYearForecast(pYear)}\n`;
+        setOutput(out);
+      };
+
+      return (
+        <div className="min-h-screen flex items-center justify-center p-4">
+          <div className="glass-card rounded-2xl p-8 max-w-lg w-full">
+            <h1 className="text-3xl font-bold text-center mb-6 text-purple-200 font-['Cinzel']">
+              Numerologia AI – Profil Osobisty
+            </h1>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-purple-100 mb-1">
+                  Imię i nazwisko:
+                </label>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Jan Kowalski"
+                  className="w-full p-3 bg-transparent border border-purple-300 rounded-lg text-white placeholder-purple-300 focus:border-purple-400"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-purple-100 mb-1">
+                  Data urodzenia:
+                </label>
+                <input
+                  type="date"
+                  value={dob}
+                  onChange={(e) => setDob(e.target.value)}
+                  className="w-full p-3 bg-transparent border border-purple-300 rounded-lg text-white focus:border-purple-400"
+                />
+              </div>
+              <button
+                onClick={handleGenerate}
+                className="w-full py-3 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-lg text-white font-semibold hover:from-purple-600 hover:to-indigo-700"
+              >
+                Generuj raport
+              </button>
+            </div>
+            {output && (
+              <pre id="output" className="mt-6 p-4 bg-transparent text-purple-100 rounded-lg">
+                {output}
+              </pre>
+            )}
+          </div>
+        </div>
+      );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
   </script>
 </body>
 </html>
