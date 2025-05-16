@@ -7,49 +7,8 @@
   <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.development.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.development.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/babel-standalone@7.22.9/babel.min.js"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: linear-gradient(135deg, #2e1a47 0%, #4b0082 50%, #191970 100%);
-      background-size: 200% 200%;
-      animation: gradientFlow 15s ease infinite;
-      font-family: 'Poppins', sans-serif;
-      color: #ffffff;
-    }
-    @keyframes gradientFlow {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    .glass-card {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    }
-    input, button {
-      transition: all 0.3s ease;
-    }
-    input:focus {
-      outline: none;
-      border-color: #a78bfa;
-      box-shadow: 0 0 8px rgba(167, 139, 250, 0.5);
-    }
-    button:hover {
-      transform: translateY(-2px);
-    }
-    #output {
-      white-space: pre-wrap;
-      animation: fadeIn 1s ease;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  </style>
+  <link href="styles.css" rel="stylesheet">
 </head>
 <body>
   <div id="root"></div>
@@ -57,7 +16,7 @@
   <script type="text/babel">
     const letterToNumber = {
       A:1,J:1,S:1, B:2,K:2,T:2, C:3,L:3,U:3, D:4,M:4,V:4,
-      E:5,N:5,W:5, F:6,O:6,X:6, G:7,P:7,Y:7, H:8,Q:8,Z:8,
+     -helper E:5,N:5,W:5, F:6,O:6,X:6, G:7,P:7,Y:7, H:8,Q:8,Z:8,
       I:9,R:9
     };
 
@@ -70,7 +29,7 @@
       6: "Rodzina, odpowiedzialność, domowe sprawy, harmonia.",
       7: "Introspekcja, duchowość, analiza, wyciszenie.",
       8: "Ambicje, sukces zawodowy, zarządzanie finansami.",
-      9: "Zakończenia, podsumowania, służba innym, transformacja."
+      9: "Zakończenia, podsumowania, służ/Programma innym, transformacja."
     };
 
     const numberMeaningsContextual = {
@@ -209,7 +168,7 @@
       return (
         <div className="min-h-screen flex items-center justify-center p-4">
           <div className="glass-card rounded-2xl p-8 max-w-lg w-full">
-            <h1 className="text-3xl font-bold text-center mb-6 text-purple-200 font-['Cinzel']">
+            <h1 className="text-3xl font-bold text-center mb-6 text-purple-200 font-cinzel">
               Numerologia AI – Profil Osobisty
             </h1>
             <div className="space-y-4">
